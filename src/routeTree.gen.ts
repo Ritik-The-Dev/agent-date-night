@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MatrixRouteImport } from './routes/matrix'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RankingsRouteImport } from './routes/rankings'
 import { Route as SubmissionRouteImport } from './routes/submission'
 import { Route as TheaterRouteImport } from './routes/theater'
 
@@ -22,6 +24,16 @@ const IndexRoute = IndexRouteImport.update({
 const MatrixRoute = MatrixRouteImport.update({
   id: '/matrix',
   path: '/matrix',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RankingsRoute = RankingsRouteImport.update({
+  id: '/rankings',
+  path: '/rankings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubmissionRoute = SubmissionRouteImport.update({
@@ -38,12 +50,16 @@ const TheaterRoute = TheaterRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/matrix': typeof MatrixRoute
+  '/profile': typeof ProfileRoute
+  '/rankings': typeof RankingsRoute
   '/submission': typeof SubmissionRoute
   '/theater': typeof TheaterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/matrix': typeof MatrixRoute
+  '/profile': typeof ProfileRoute
+  '/rankings': typeof RankingsRoute
   '/submission': typeof SubmissionRoute
   '/theater': typeof TheaterRoute
 }
@@ -51,20 +67,32 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/matrix': typeof MatrixRoute
+  '/profile': typeof ProfileRoute
+  '/rankings': typeof RankingsRoute
   '/submission': typeof SubmissionRoute
   '/theater': typeof TheaterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/matrix' | '/submission' | '/theater'
+  fullPaths:
+    '/' | '/matrix' | '/profile' | '/rankings' | '/submission' | '/theater'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/matrix' | '/submission' | '/theater'
-  id: '__root__' | '/' | '/matrix' | '/submission' | '/theater'
+  to: '/' | '/matrix' | '/profile' | '/rankings' | '/submission' | '/theater'
+  id:
+    | '__root__'
+    | '/'
+    | '/matrix'
+    | '/profile'
+    | '/rankings'
+    | '/submission'
+    | '/theater'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MatrixRoute: typeof MatrixRoute
+  ProfileRoute: typeof ProfileRoute
+  RankingsRoute: typeof RankingsRoute
   SubmissionRoute: typeof SubmissionRoute
   TheaterRoute: typeof TheaterRoute
 }
@@ -83,6 +111,20 @@ declare module '@tanstack/react-router' {
       path: '/matrix'
       fullPath: '/matrix'
       preLoaderRoute: typeof MatrixRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rankings': {
+      id: '/rankings'
+      path: '/rankings'
+      fullPath: '/rankings'
+      preLoaderRoute: typeof RankingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/submission': {
@@ -105,6 +147,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MatrixRoute: MatrixRoute,
+  ProfileRoute: ProfileRoute,
+  RankingsRoute: RankingsRoute,
   SubmissionRoute: SubmissionRoute,
   TheaterRoute: TheaterRoute,
 }
