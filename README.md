@@ -1,9 +1,7 @@
 # Cupid.agent — Agentic Dating Site
 
-> **Live site:** https://cupid-agent.pages.dev  
-> **Demo link (pre-run example):** https://cupid-agent.pages.dev  
-> **GitHub:** https://github.com/your-org/cupid-agent *(make public before submission)*  
-> **YouTube demo:** *(add 3-min video URL here before submission)*
+> **Live site:** https://date.ritik.biz    
+> **GitHub:** https://github.com/Ritik-The-Dev/agent-date-night  
 
 ---
 
