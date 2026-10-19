@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MatrixRouteImport } from './routes/matrix'
+import { Route as SubmissionRouteImport } from './routes/submission'
+import { Route as TheaterRouteImport } from './routes/theater'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatrixRoute = MatrixRouteImport.update({
+  id: '/matrix',
+  path: '/matrix',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubmissionRoute = SubmissionRouteImport.update({
+  id: '/submission',
+  path: '/submission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TheaterRoute = TheaterRouteImport.update({
+  id: '/theater',
+  path: '/theater',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/matrix': typeof MatrixRoute
+  '/submission': typeof SubmissionRoute
+  '/theater': typeof TheaterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/matrix': typeof MatrixRoute
+  '/submission': typeof SubmissionRoute
+  '/theater': typeof TheaterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/matrix': typeof MatrixRoute
+  '/submission': typeof SubmissionRoute
+  '/theater': typeof TheaterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/matrix' | '/submission' | '/theater'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/matrix' | '/submission' | '/theater'
+  id: '__root__' | '/' | '/matrix' | '/submission' | '/theater'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MatrixRoute: typeof MatrixRoute
+  SubmissionRoute: typeof SubmissionRoute
+  TheaterRoute: typeof TheaterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matrix': {
+      id: '/matrix'
+      path: '/matrix'
+      fullPath: '/matrix'
+      preLoaderRoute: typeof MatrixRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/submission': {
+      id: '/submission'
+      path: '/submission'
+      fullPath: '/submission'
+      preLoaderRoute: typeof SubmissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/theater': {
+      id: '/theater'
+      path: '/theater'
+      fullPath: '/theater'
+      preLoaderRoute: typeof TheaterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MatrixRoute: MatrixRoute,
+  SubmissionRoute: SubmissionRoute,
+  TheaterRoute: TheaterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
