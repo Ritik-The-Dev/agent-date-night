@@ -4,13 +4,13 @@ import { useState } from "react";
 export const Route = createFileRoute("/submission")({
   head: () => ({
     meta: [
-      { title: "Challenge Submission Kit | Cupid.agent" },
+      { title: "Challenge Submission Kit | agent.ritik.biz" },
       {
         name: "description",
         content:
           "200-character summary, real scraping architecture, and the 3-minute demo video storyboard.",
       },
-      { property: "og:title", content: "Cupid.agent — Submission Kit" },
+      { property: "og:title", content: "agent.ritik.biz — Submission Kit" },
       {
         property: "og:description",
         content:
@@ -22,9 +22,6 @@ export const Route = createFileRoute("/submission")({
   }),
   component: Kit,
 });
-
-const SUMMARY =
-  "Cupid.agent scrapes real LinkedIn + Instagram OG metadata, synthesizes psych profiles, sends any pair on a 16-turn agent date with live chemistry, then ranks all 25 best matches.";
 
 const TECH_STACK = [
   {
@@ -129,44 +126,11 @@ const ARCH_STEPS = [
   },
 ];
 
-const STORY = [
-  {
-    time: "0:00–0:20",
-    phase: "Hook",
-    desc: "\"What if your AI went on the first date for you?\" Pan across the 25-agent roster grid.",
-  },
-  {
-    time: "0:20–0:50",
-    phase: "Profile cards",
-    desc: "Open two cards. Show real photo, bio, attachment style, needs, quirks, dealbreakers, and trait radar. Click LinkedIn + Instagram links to verify sources.",
-  },
-  {
-    time: "0:50–1:20",
-    phase: "Live ingestion",
-    desc: "Paste a real LinkedIn + Instagram pair into Add Candidate. Watch 5-step progress: URL validation → CORS proxy fetch → OG extraction → persona synthesis → agent birth. Show real scraped avatar.",
-  },
-  {
-    time: "1:20–2:20",
-    phase: "Date Theater",
-    desc: "Pick pair + venue. Run 16-turn date at 1× speed. Toggle Agent Brain to reveal private strategy referencing real traits. Show typing indicator. Chemistry meter swings. Confetti burst on high chemistry. Post-date debrief + verdict.",
-  },
-  {
-    time: "2:20–2:45",
-    phase: "Compatibility Matrix",
-    desc: "Leaderboard of best fits. Power couples row. Trait radar comparison for two agents. Animated score bars. Jump into date from table row.",
-  },
-  {
-    time: "2:45–3:00",
-    phase: "Close",
-    desc: "Architecture diagram. Stack slide. Summary: \"Let the agents flirt. You just show up for the second date.\"",
-  },
-];
 
 const LINKS = [
-  { label: "YouTube demo", value: "", placeholder: true, icon: "▶️", hint: "Add before submission" },
-  { label: "Live website", value: "https://cupid-agent.pages.dev", placeholder: false, icon: "🌐", hint: "" },
-  { label: "GitHub repo", value: "https://github.com/your-org/cupid-agent", placeholder: true, icon: "🐙", hint: "Must be public" },
-  { label: "Demo link (pre-run)", value: "", placeholder: true, icon: "🔗", hint: "Same example, already run" },
+  { label: "YouTube demo", value: "https://youtu.be/3eVw7uPLZws", placeholder: false, icon: "▶️"},
+  { label: "Live website", value: "https://agent.ritik.biz", placeholder: false, icon: "🌐" },
+  { label: "GitHub repo", value: "https://github.com/ritik-the-dev/agent-date-night", placeholder: false, icon: "🐙", }
 ];
 
 function CopyButton({ text }: { text: string }) {
@@ -206,15 +170,13 @@ function Kit() {
       <section className="rounded-3xl border border-border bg-card p-6">
         <p className="mb-4 text-xs uppercase tracking-[0.3em] text-primary">Submission links</p>
         <div className="grid gap-3 sm:grid-cols-2">
-          {LINKS.map(({ label, value, placeholder, icon, hint }) => (
+          {LINKS.map(({ label, value, placeholder, icon }) => (
             <div key={label} className="rounded-2xl border border-border bg-secondary p-4">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xl">{icon}</span>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">{label}</p>
               </div>
-              {placeholder ? (
-                <p className="text-sm text-muted-foreground/60 italic">{hint}</p>
-              ) : (
+              {
                 <a
                   href={value}
                   target="_blank"
@@ -223,27 +185,12 @@ function Kit() {
                 >
                   {value}
                 </a>
-              )}
+              }
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── 200-char summary ─────────────────────────────────────── */}
-      <section className="rounded-3xl border border-primary/50 bg-card p-6 animate-fade-in-up">
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <h2 className="font-display text-2xl text-card-foreground">200-character summary</h2>
-          <div className="flex items-center gap-3">
-            <span
-              className={`text-sm ${SUMMARY.length > 200 ? "text-destructive" : "text-primary"}`}
-            >
-              {SUMMARY.length}/200
-            </span>
-            <CopyButton text={SUMMARY} />
-          </div>
-        </div>
-        <p className="mt-3 text-lg text-foreground leading-relaxed">{SUMMARY}</p>
-      </section>
 
       {/* ── Technical section ────────────────────────────────────── */}
       <section className="animate-fade-in-up">
@@ -337,25 +284,6 @@ function Kit() {
           indicator and the system transparently falls back to a seeded persona derived from the
           URL handles. The site never crashes.
         </p>
-      </section>
-
-      {/* ── Video storyboard ─────────────────────────────────────── */}
-      <section className="animate-fade-in-up">
-        <h2 className="font-display text-3xl text-foreground mb-4">3-minute video storyboard</h2>
-        <ol className="space-y-3 stagger-children">
-          {STORY.map(({ time, phase, desc }) => (
-            <li
-              key={time}
-              className="grid grid-cols-[110px_1fr] gap-4 rounded-2xl border border-border bg-card p-4 card-hover"
-            >
-              <span className="font-display text-lg text-primary">{time}</span>
-              <div>
-                <p className="font-semibold text-card-foreground">{phase}</p>
-                <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">{desc}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
       </section>
     </main>
   );
