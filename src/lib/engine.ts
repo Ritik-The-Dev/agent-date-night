@@ -68,7 +68,7 @@ export function simulateDate(a: Person, b: Person, venueId: string): DateResult 
       : [`I'll admit I know nothing about ${o.interests[0]!}. Teach me one thing?`, `No overlap. Curiosity is my best play here.`, 2],
     (s, o) => [`Full disclosure: ${s.quirks[0]!.toLowerCase()}.`, `Quirk reveal. If ${first(o)} flinches, that's data.`, s.traits.warmth > 7 ? 5 : 1],
     (s, o) => {
-      const clash = o.dealbreakers.some((d) => s.quirks.join(" ").toLowerCase().includes(d.split(" ")[0].toLowerCase()));
+      const clash = o.dealbreakers.some((d) => s.quirks.join(" ").toLowerCase().includes((d.split(" ")[0] ?? "").toLowerCase()));
       return clash || r() < 0.25
         ? [`Hmm. I have to be honest, ${o.dealbreakers[0]!.toLowerCase()} is kind of a line for me.`, `Red flag adjacent. Say it now rather than later.`, -8]
         : [`That's oddly charming. I'd rather that than ${s.dealbreakers[0]!.toLowerCase()} any day.`, `Green flag. Signal approval without overplaying.`, 6];

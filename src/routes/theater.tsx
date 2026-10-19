@@ -24,7 +24,7 @@ function Theater() {
   const search = Route.useSearch();
   const [aId, setA] = useState(search.a ?? roster[0]!.id);
   const [bId, setB] = useState(search.b ?? roster[7]!.id);
-  const [venue, setVenue] = useState(VENUES[0].id);
+  const [venue, setVenue] = useState(VENUES[0]!.id);
   const [shown, setShown] = useState(-1);
   const [brain, setBrain] = useState(true);
   const a = (roster.find((p) => p.id === aId) ?? roster[0])!;
