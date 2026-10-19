@@ -20,10 +20,10 @@ export const Route = createFileRoute("/matrix")({
 
 function Matrix() {
   const roster = useRoster();
-  const [id, setId] = useState(roster[0].id);
-  const p = roster.find((x) => x.id === id) ?? roster[0];
+  const [id, setId] = useState(roster[0]!.id);
+  const p = roster.find((x) => x.id === id) ?? roster[0]!;
   const ranks = useMemo(() => rankFor(p, roster), [p, roster]);
-  const best = useMemo(() => roster.map((x) => ({ p: x, top: rankFor(x, roster)[0] })).sort((m, n) => n.top.total - m.top.total).slice(0, 5), [roster]);
+  const best = useMemo(() => roster.map((x) => ({ p: x, top: rankFor(x, roster)[0]! })).sort((m, n) => n.top.total - m.top.total).slice(0, 5), [roster]);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">

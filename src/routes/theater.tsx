@@ -22,13 +22,13 @@ export const Route = createFileRoute("/theater")({
 function Theater() {
   const roster = useRoster();
   const search = Route.useSearch();
-  const [aId, setA] = useState(search.a ?? roster[0].id);
-  const [bId, setB] = useState(search.b ?? roster[7].id);
+  const [aId, setA] = useState(search.a ?? roster[0]!.id);
+  const [bId, setB] = useState(search.b ?? roster[7]!.id);
   const [venue, setVenue] = useState(VENUES[0].id);
   const [shown, setShown] = useState(-1);
   const [brain, setBrain] = useState(true);
-  const a = roster.find((p) => p.id === aId) ?? roster[0];
-  const b = roster.find((p) => p.id === bId) ?? roster[1];
+  const a = (roster.find((p) => p.id === aId) ?? roster[0])!;
+  const b = (roster.find((p) => p.id === bId) ?? roster[1])!;
   const res = useMemo(() => simulateDate(a, b, venue), [a, b, venue]);
   const v = VENUES.find((x) => x.id === venue)!;
   const playing = shown >= 0 && shown < res.turns.length;
@@ -41,7 +41,7 @@ function Theater() {
     return () => clearTimeout(t);
   }, [shown, playing]);
 
-  const chem = shown < 0 ? 50 : res.turns[Math.min(shown, res.turns.length - 1)].chemistry;
+  const chem = shown < 0 ? 50 : res.turns[Math.min(shown, res.turns.length - 1)]!.chemistry;
   const select = "w-full rounded-xl border border-input bg-background px-3 py-2 text-foreground";
 
   return (
