@@ -5,7 +5,7 @@ import { useRoster } from "@/lib/store";
 import { simulateDate, VENUES } from "@/lib/engine";
 
 export const Route = createFileRoute("/theater")({
-  validateSearch: (s: Record<string, unknown>) => ({ a: typeof s.a === "string" ? s.a : undefined, b: typeof s.b === "string" ? s.b : undefined }),
+  validateSearch: (s: Record<string, unknown>): { a?: string; b?: string } => ({ a: typeof s["a"] === "string" ? s["a"] : undefined, b: typeof s["b"] === "string" ? s["b"] : undefined }),
   head: () => ({
     meta: [
       { title: "Date Theater — Watch two AI agents go on a date | Cupid.agent" },

@@ -61,21 +61,21 @@ export function simulateDate(a: Person, b: Person, venueId: string): DateResult 
 
   const scripts: ((s: Person, o: Person) => [string, string, number])[] = [
     (s, o) => [`So — ${venue.name.toLowerCase()}. Bold choice. I'm ${first(s)}, but you probably already stalked my Instagram.`, `Open light. Gauge if ${first(o)} has humor before going deep.`, s.traits.humor / 2],
-    (s, o) => [`Guilty. Honestly I'm curious — what's the thing you'd do even if nobody paid you?`, `Skip small talk. ${s.needs[0]} matters to me; test for it.`, 3],
-    (s) => [`Probably ${s.hobbies[0]}. Nobody believes me, but it keeps me sane.`, `Revealing a soft spot. Risky but authentic.`, 4],
+    (s, o) => [`Guilty. Honestly I'm curious — what's the thing you'd do even if nobody paid you?`, `Skip small talk. ${s.needs[0]!} matters to me; test for it.`, 3],
+    (s) => [`Probably ${s.hobbies[0]!}. Nobody believes me, but it keeps me sane.`, `Revealing a soft spot. Risky but authentic.`, 4],
     (s, o) => sh.length
-      ? [`Wait, you're into ${sh[0]} too? Okay, now we have to talk about it properly.`, `Shared interest detected: ${sh[0]}. Lean in hard.`, 9]
-      : [`I'll admit I know nothing about ${o.interests[0]}. Teach me one thing?`, `No overlap. Curiosity is my best play here.`, 2],
-    (s, o) => [`Full disclosure: ${s.quirks[0].toLowerCase()}.`, `Quirk reveal. If ${first(o)} flinches, that's data.`, s.traits.warmth > 7 ? 5 : 1],
+      ? [`Wait, you're into ${sh[0]!} too? Okay, now we have to talk about it properly.`, `Shared interest detected: ${sh[0]!}. Lean in hard.`, 9]
+      : [`I'll admit I know nothing about ${o.interests[0]!}. Teach me one thing?`, `No overlap. Curiosity is my best play here.`, 2],
+    (s, o) => [`Full disclosure: ${s.quirks[0]!.toLowerCase()}.`, `Quirk reveal. If ${first(o)} flinches, that's data.`, s.traits.warmth > 7 ? 5 : 1],
     (s, o) => {
       const clash = o.dealbreakers.some((d) => s.quirks.join(" ").toLowerCase().includes(d.split(" ")[0].toLowerCase()));
       return clash || r() < 0.25
-        ? [`Hmm. I have to be honest, ${o.dealbreakers[0].toLowerCase()} is kind of a line for me.`, `Red flag adjacent. Say it now rather than later.`, -8]
-        : [`That's oddly charming. I'd rather that than ${s.dealbreakers[0].toLowerCase()} any day.`, `Green flag. Signal approval without overplaying.`, 6];
+        ? [`Hmm. I have to be honest, ${o.dealbreakers[0]!.toLowerCase()} is kind of a line for me.`, `Red flag adjacent. Say it now rather than later.`, -8]
+        : [`That's oddly charming. I'd rather that than ${s.dealbreakers[0]!.toLowerCase()} any day.`, `Green flag. Signal approval without overplaying.`, 6];
     },
     (s) => [`What do you actually need from a partner? Not the LinkedIn answer.`, `Going for depth. Attachment style: ${s.attachment}.`, 4],
     (s) => [`Honestly? ${s.needs.join(" and ")}. Took me years to say that out loud.`, `Vulnerability play. ${s.attachment === "Avoidant" ? "Uncomfortable, but worth it." : "Feels natural."}`, s.attachment === "Avoidant" ? 3 : 7],
-    (s, o) => [`If this goes well, next time we do ${o.hobbies[0]} — your turf.`, `Future-pacing. Watch for hesitation.`, 5],
+    (s, o) => [`If this goes well, next time we do ${o.hobbies[0]!} — your turf.`, `Future-pacing. Watch for hesitation.`, 5],
     (s) => [`Deal. But I'm picking the playlist.`, `Close warm. Leave them wanting more.`, s.traits.humor / 2],
   ];
 
