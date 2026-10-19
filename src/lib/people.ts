@@ -84,9 +84,10 @@ const seeds: Seed[] = [
 
 export const PEOPLE: Person[] = seeds.map((s) => {
   const [name, title, category, l, i, bio, needs, hobbies, interests, attachment, quirks, dealbreakers, t] = s;
+  const [t0 = 5, t1 = 5, t2 = 5, t3 = 5, t4 = 5, t5 = 5] = t;
   return {
     id: i, name, title, category, linkedin: li(l), instagram: ig(i), igHandle: i, bio,
     needs, hobbies, interests, attachment, quirks, dealbreakers,
-    traits: { intellect: t[0], energy: t[1], ambition: t[2], humor: t[3], warmth: t[4], adventure: t[5] },
+    traits: { intellect: t0, energy: t1, ambition: t2, humor: t3, warmth: t4, adventure: t5 },
   };
 });

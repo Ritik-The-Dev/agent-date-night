@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Person } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 export function Avatar({ p, className }: { p: Person; className?: string }) {
   const [failed, setFailed] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
+  }, []);
   const initials = p.name.split(" ").map((w) => w[0]).slice(0, 2).join("");
   return (
     <div className={cn("relative overflow-hidden rounded-full bg-secondary ring-2 ring-primary/40", className)}>
       {!failed ? (
         <img
+          ref={ref}
           src={`https://unavatar.io/instagram/${p.igHandle}?fallback=false`}
           alt={p.name}
           loading="lazy"

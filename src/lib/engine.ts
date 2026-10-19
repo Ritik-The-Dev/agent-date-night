@@ -14,7 +14,7 @@ export function rng(seed: string) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-const pick = <T,>(r: () => number, arr: T[]) => arr[Math.floor(r() * arr.length)];
+const pick = <T,>(r: () => number, arr: T[]): T => arr[Math.floor(r() * arr.length)]!;
 const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
 
 const ATTACH: Record<Attachment, Record<Attachment, number>> = {
@@ -50,7 +50,7 @@ export interface DateResult { turns: Turn[]; chemistry: number; verdict: string;
 
 export function simulateDate(a: Person, b: Person, venueId: string): DateResult {
   const r = rng(`${[a.id, b.id].sort().join("|")}|${venueId}`);
-  const venue = VENUES.find((v) => v.id === venueId) ?? VENUES[0];
+  const venue = VENUES.find((v) => v.id === venueId) ?? VENUES[0]!;
   const sh = shared(a, b);
   const base = (intellectual(a, b) + lifestyle(a, b)) / 2;
   const att = ATTACH[a.attachment][b.attachment];
@@ -80,7 +80,7 @@ export function simulateDate(a: Person, b: Person, venueId: string): DateResult 
   ];
 
   scripts.forEach((fn, i) => {
-    const s = p[i % 2] as Person, o = p[(i + 1) % 2] as Person;
+    const s = p[i % 2]!, o = p[(i + 1) % 2]!;
     const [line, thought, d] = fn(s, o);
     const delta = Math.round((d + (r() - 0.4) * 6) * (0.6 + att * 0.6));
     chem = Math.max(5, Math.min(99, chem + delta + (base - 60) / 10));
@@ -118,7 +118,7 @@ const POOL = {
 export function parseHandle(url: string, kind: "linkedin" | "instagram") {
   const re = kind === "linkedin" ? /linkedin\.com\/in\/([^/?#]+)/i : /instagram\.com\/([^/?#]+)/i;
   const m = url.trim().match(re);
-  return m ? decodeURIComponent(m[1]) : null;
+  return m ? decodeURIComponent(m[1] ?? "") : null;
 }
 export function ingest(linkedin: string, instagram: string, nameHint?: string): Person | string {
   const l = parseHandle(linkedin, "linkedin"), i = parseHandle(instagram, "instagram");
